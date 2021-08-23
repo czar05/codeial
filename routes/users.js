@@ -6,8 +6,8 @@ const Passport = require('passport');
 
 const usersController = require('../controllers/users_controller');
 
-router.get('/profile', Passport.checkAuthentication, usersController.profile);
-
+router.get('/profile/:id', Passport.checkAuthentication, usersController.profile);
+router.post('/update/:id', Passport.checkAuthentication, usersController.update);
 
 router.get('/sign-up', usersController.signUp);
 router.get('/sign-in', usersController.signIn);
@@ -21,4 +21,6 @@ router.post('/create-session', Passport.authenticate(
     {failureRedirect : '/users/sign-in'},
 ), usersController.createSession);
 
-module.exports = router;//check now
+router.get('/sign-out', usersController.destroySession);
+
+module.exports = router;
