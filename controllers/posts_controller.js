@@ -29,10 +29,10 @@ module.exports.create = async function(req, res){
 
 
 module.exports.destroy = async function(req, res){
-    console.log("inside dwstroy")
+   
     try {
         let post = await Post.findById(req.params.id);
-        console.log("post-------->", post);
+        
         if(post.user == req.user.id){
             post.remove();
 
