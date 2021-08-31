@@ -1,4 +1,5 @@
 const express = require('express');
+const passport = require('passport');
 
 const router = express.Router();
 
@@ -22,5 +23,8 @@ router.post('/create-session', Passport.authenticate(
 ), usersController.createSession);
 
 router.get('/sign-out', usersController.destroySession);
+
+router.get('/auth/google', passport.authenticate('google', {scope: ['profile', 'email']}));
+router.get('/auth/google/callBack', passport.authenticate('google', {failureRedirect: '/users/sign-in'}), usersController.createSession);
 
 module.exports = router;
