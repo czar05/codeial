@@ -19,7 +19,11 @@ const sassMiddleware = require('node-sass-middleware');
 const flash = require('connect-flash');
 const customMware = require('./config/middleware');
 
-
+// setup the chat server to be used with socket.io
+const chatServer = require('http').createServer(app);
+const chatSockets = require('./config/chat_sockets').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
 
 
 app.use(sassMiddleware({
@@ -39,9 +43,8 @@ app.use('/uploads', express.static(__dirname + '/uploads'));
 
 
 app.use(expressLayouts);
-
-app.set('layout extractStyles', true);
-app.set('layout extractScripts', true);
+app.set("layout extractStyles", true);
+app.set("layout extractScripts", true);
 
 
 
